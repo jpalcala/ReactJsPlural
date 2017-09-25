@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import _ from 'underscore';
 const Stars = (props)=>{
-    const numberOfStars =1 +Math.floor( Math.random()*9);
+    
 
     
 
     return (
         <div className='col-sm-5'>
-           {_.map(_.range(numberOfStars),(i)=>{
+           {_.map(_.range(props.numberOfStars),(i)=>{
                 return <i key={i} className='fa fa-star'></i>
            })}
 
@@ -55,10 +55,13 @@ class Game extends React.Component{
 
     state={
         selectedNumbers:[2,4],
-
+        numberOfStars :1 +Math.floor( Math.random()*9)
     };
 
     selectNumber =(clickedNumber)=>{
+
+        if(this.state.selectedNumbers.indexOf(clickedNumber)>=0){return;}
+        
         this.setState(prevState =>({
                 
                 selectedNumbers: prevState.selectedNumbers.concat(clickedNumber)
@@ -71,7 +74,7 @@ class Game extends React.Component{
                 <h3>Play Nine</h3>
                 <hr/>
                 <div className='row'>
-                    <Stars/>
+                    <Stars numberOfStars={this.state.numberOfStars}/>
                     <Button/>
                     <Answer selectedNumbers={this.state.selectedNumbers}/>
                 </div>
